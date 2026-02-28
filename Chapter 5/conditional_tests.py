@@ -50,9 +50,7 @@ if user_score in range(15, 30):
 if user_score in range(0, 15):
     grade = 'F'
 
-print(f"You scored {user_score}, which means you passed with grade {grade}!")    
-
-print(f"\n --- \n")
+print(f"You scored {user_score}, which means you passed with grade {grade}!")
 
 # Triangle Classifier
 
@@ -82,8 +80,10 @@ else:
 
 if sum(valid) == 3:
     print(f"\nThis is a valid Triangle because the result of valid conditions was: {sum(valid)}")
-if sum(invalid) == 1:
-    print(f"This is an invalid Triangle because the result of invalid conditions was: {sum(invalid)}, while valid conditions was {sum(valid)}")    
+elif sum(invalid) == 1:
+    print(f"This is an invalid Triangle because the result of invalid conditions was: {sum(invalid)}, while valid conditions was {sum(valid)}")
+else:
+    print("Please report this Triangle to the Pentagon.")    
 
 ## Classifying the Triangle
 
@@ -91,11 +91,10 @@ if a == b == c:
     print("This Triangle is classified as Equilateral because all sides are the same length.")
 elif (a == b) or (a == c) or (b == c):
     print("This Triangle is classified as Isosceles because two sides are the same lengths.")
-
-if a != b != c and a != c:
-    print("This Triangle is classified as Scalene because none of the sides have the same lengths.")         
-
-print(f"\n --- \n")
+elif a != b != c and a != c:
+    print("This Triangle is classified as Scalene because none of the sides have the same lengths.")
+else:
+    print("This is a rather strange Triangle, sir.")         
 
 # Shipping Cost Estimator  
 
@@ -167,7 +166,7 @@ if 'Boring' in awkward_list:
 else:
     print('Did not work properly')
 
-if 'challenging' not in 'awkward_list':
+if 'challenging' not in awkward_list:
     print("Aha - yes that explains why you think it's boring!")
 else:
     print("Good that you thought this was challenging. I did not.")    
