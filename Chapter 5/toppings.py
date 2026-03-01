@@ -1,13 +1,9 @@
-requested_topping = ['ananas', 'extra cheese']
+requested_toppings = []
 
-if 'ananas' in requested_topping:
-    print("Adding ananas...")
-
-if 'spicy chicken' in requested_topping:
-    print("Adding spicy chicken...")
-
-if 'extra cheese' in requested_topping:
-    print("Adding extra cheese...")
-
-print("\nFinished making your pizza!")            
+if requested_toppings:
+    for requested_topping in requested_toppings:
+        print(f"Adding {requested_toppings}...")
+    print("\nFinished making the pizza!")    
+else:
+    print("Are you sure you want a plain pizza?")            
 
