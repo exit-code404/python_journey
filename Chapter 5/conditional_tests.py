@@ -35,7 +35,7 @@ print(f"\n --- \n")
 
 # Grade Calculator
 
-user_score = 55
+user_score = 96
 
 if user_score in range(90, 101):
     grade = 'A'
