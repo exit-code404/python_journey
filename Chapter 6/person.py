@@ -1,4 +1,4 @@
-personal_info = {
+personal_info_0 = {
     'first_name': 'dan',
     'last_name': 'johnsen',
     'age': 25,
@@ -7,9 +7,36 @@ personal_info = {
     'nationality': 'norwegian'
 }
 
-print(personal_info['first_name'].title())
-print(personal_info['last_name'].title())
-print(personal_info['age'])
-print(personal_info['city'].title())
-print(personal_info['work'].title())
-print(personal_info['nationality'].title())
+personal_info_1 = {
+    'first_name': 'rune',
+    'last_name': 'ericson',
+    'age': 55,
+    'city': 'trondheim',
+    'work': 'web developer',
+    'nationality': 'norwegian'
+}
+
+personal_info_2 = {
+    'first_name': 'geir',
+    'last_name': 'olgson',
+    'age': 32,
+    'city': 'bergen',
+    'work': 'banker',
+    'nationality': 'english'
+}
+
+peoples = [personal_info_0, personal_info_1, personal_info_2]
+
+
+
+for people in peoples:
+    first_name = f"\nFirst name: {people['first_name'].title()}"
+    last_name = f"Last name: {people['last_name'].title()}"
+    age = f"Age: {people['age']}"
+    city = f"City: {people['city'].title()}"
+    work = f"Work: {people['work'].title()}"
+    nationality = f"Nationality: {people['nationality'].title()}"
+
+    personal_info = f"{first_name} \n{last_name} \n{age} \n{city} \n{work} \n{nationality}"
+
+    print(personal_info)
