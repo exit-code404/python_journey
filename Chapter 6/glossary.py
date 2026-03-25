@@ -12,4 +12,4 @@ glossary = {
 }
 
 for key, value in glossary.items():
-    print(f"The word: '{key}' has the definition: '{value}'.")
+    print(f"'{key}' has the definition: '{value}'.")

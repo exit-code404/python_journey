@@ -1,6 +1,6 @@
 personal_info_0 = {
-    'first_name': 'dan',
-    'last_name': 'johnsen',
+    'first name': 'dan',
+    'last name': 'johnsen',
     'age': 25,
     'city': 'lillestrøm',
     'work': 'fashion designer',
@@ -8,8 +8,8 @@ personal_info_0 = {
 }
 
 personal_info_1 = {
-    'first_name': 'rune',
-    'last_name': 'ericson',
+    'first name': 'rune',
+    'last name': 'ericson',
     'age': 55,
     'city': 'trondheim',
     'work': 'web developer',
@@ -17,8 +17,8 @@ personal_info_1 = {
 }
 
 personal_info_2 = {
-    'first_name': 'geir',
-    'last_name': 'olgson',
+    'first name': 'geir',
+    'last name': 'olgson',
     'age': 32,
     'city': 'bergen',
     'work': 'banker',
@@ -28,10 +28,9 @@ personal_info_2 = {
 peoples = [personal_info_0, personal_info_1, personal_info_2]
 
 
-
 for people in peoples:
-    first_name = f"\nFirst name: {people['first_name'].title()}"
-    last_name = f"Last name: {people['last_name'].title()}"
+    first_name = f"\nFirst name: {people['first name'].title()}"
+    last_name = f"Last name: {people['last name'].title()}"
     age = f"Age: {people['age']}"
     city = f"City: {people['city'].title()}"
     work = f"Work: {people['work'].title()}"
