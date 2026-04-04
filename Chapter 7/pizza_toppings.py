@@ -15,7 +15,8 @@ while True:
         break
     else:
         pizza.append(topping)
-        print(pizza)
+        for toppings in pizza:
+            print(toppings)
 
 # Problem 1: This only displays the current item, and not the whole list. SOLVED
-# Problem 2: The display is not neat enough. I want it to be formatted into an actual list without the [].
+# Problem 2: The display is not neat enough. I want it to be formatted into an actual list without the []. SOLVED!
