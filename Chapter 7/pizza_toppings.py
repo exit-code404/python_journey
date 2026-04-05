@@ -6,13 +6,14 @@ prompt += "\nPress 'done' to finish the pizza. "
 
 pizza = []
 
-while True:
+active = True
+while active:
 
     topping = input(prompt)
 
     if topping == 'done':
         print(f"You pizza has been ordered! You have chosen: {pizza}.")
-        break
+        active = False
     else:
         pizza.append(topping)
         for toppings in pizza:
