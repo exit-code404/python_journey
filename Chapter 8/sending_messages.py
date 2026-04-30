@@ -1,14 +1,4 @@
-def show_messages(message):
-    '''Print a message from a list'''
-    print(f"[This is the messages inside the list]:")
-    for msg in message:
-        print(msg)
-
-def move_messages(sent):
-    '''Moves from message_list to another list'''
-    while sent:
-        current_message = sent.pop()
-        sent_messages.append(current_message)        
+import sending_functions as sf     
 
 message_list = [
     'hi and welcome',
@@ -19,9 +9,9 @@ message_list = [
 
 sent_messages = []
 
-show_messages(message_list)
+sf.show_messages(message_list)
 
-move_messages(message_list[:])
+sf.move_messages(message_list[:], sent_messages)
 
-show_messages(message_list)
-show_messages(sent_messages)
+sf.show_messages(message_list)
+sf.show_messages(sent_messages)

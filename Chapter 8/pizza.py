@@ -4,8 +4,5 @@ def make_pizza(size, *toppings):
     for topping in toppings:
         print(f"- {topping}")
 
-make_pizza(30, 'pepperoni')
-make_pizza(40, 'cheese', 'ham', 'champingnon')
-
 # Note: I will notice the parameter name *args, which collects arbitrary positional 
 # arguments like this.
