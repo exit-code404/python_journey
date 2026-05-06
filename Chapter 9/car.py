@@ -1,3 +1,5 @@
+"""A set of classes that can be used to represent gas and electric cars."""
+
 class Car:
     """Simple attempt to represent a car"""
 
@@ -7,6 +9,7 @@ class Car:
         self.model = model
         self.year = year
         self.odometer_reading = 0
+        self.gas_tank = 0
 
     def get_descriptive_name(self):
         """Return a neatly formatted descriptive name."""
@@ -29,21 +32,54 @@ class Car:
 
     def increment_odometer(self, km):
         """Add the given amount to the odometer reading."""
-        self.odometer_reading += km        
+        self.odometer_reading += km
+
+    def fill_gas_tank(self):
+        """Print a statement about the gas tank levels."""
+        if self.gas_tank == 0:
+            print("You car has no fuel. Fill it.")
+        elif self.gas_tank >= 50:
+            print("You car has at least half tank available.")
+        elif self.gas_tank >= 90:
+            print("You car has full tank.")
 
 
-my_new_car = Car('audi', 'rs6', 2026)
-my_used_car = Car('merchedes', 'e-class', 2020)
+class Battery:
+    """A simple attempt to model a battery for an eletric car."""
 
-print(my_new_car.get_descriptive_name())
+    def __init__(self, battery_size=550):
+        """Initialize the battery's attributes."""
+        self.battery_size = battery_size
 
-my_new_car.update_odometer(600)
-my_new_car.read_odometer() 
+    def describe_battery(self):
+        """Print a statement describing the battery size."""
+        print(f"This car has a {self.battery_size}-KWh battery.")
 
-print(my_used_car.get_descriptive_name())
+    def upgrade_battery(self):
+        """Check the battery and upgrades the battery."""
+        if self.battery_size == 550:
+            self.battery_size = 625
 
-my_used_car.update_odometer(50_500)
-my_used_car.read_odometer()
+    def get_range(self):
+        """Print a statement of the range that this battery provides."""
+        if self.battery_size == 550:
+            range = 250
+        elif self.battery_size == 625:
+            range = 360
 
-my_used_car.increment_odometer(100)
-my_used_car.read_odometer()
+        print(f"This car can go about {range} kilometers on a full charge.")
+
+class ElectricCar(Car):
+    """Represent aspects of a car, specific to electric vehicles."""
+
+    def __init__(self, make, model, year):
+        """
+        Initialize attributes of the parent class.
+        Then initialize attributes specific to an Electric Car.
+        """
+        super().__init__(make, model, year)
+        self.battery = Battery()
+
+    def fill_gas_tank(self):
+        """Electric cars do not have gas tanks."""
+        print("This car does not have a gas tank!")                          
