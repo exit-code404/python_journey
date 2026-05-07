@@ -47,3 +47,9 @@ print(draw.describe_winning_numbers())
 
     
 
+# Known Bugs:
+# There is a certain chance of hitting the same number multiple times. This should not be possible.
+# There is "None" printed
+
+# Wants:
+# I want the numbers to be sorted upon view starting from lowest to highest.
