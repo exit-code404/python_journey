@@ -20,18 +20,23 @@ class Eurojackpot:
     def random_draw_hovedtall(self):
         """Making the random hovedtall"""
         random_hovedtall = choice(hovedtall)
+        while random_hovedtall in current_hovedtall:
+            random_hovedtall = choice(hovedtall)
         current_hovedtall.append(random_hovedtall)
+
         
     def random_draw_stjernetall(self):
         """Making the random stjernetall"""
         random_stjernetall = choice(stjernetall)
+        while random_stjernetall in current_stjernetall:
+            random_stjernetall = choice(stjernetall)
         current_stjernetall.append(random_stjernetall)
 
     def describe_winning_numbers(self):
         """Describes the winning numbers neatly."""
         print("\n--- Winning Numbers ---")
-        print(f"Hovedtall: {current_hovedtall}")
-        print(f"Stjernetall: {current_stjernetall}")
+        print(f"Hovedtall: {sorted(current_hovedtall)}")
+        print(f"Stjernetall: {sorted(current_stjernetall)}")
 
 # Making for loops that uses the Eurojackpot class to create exactly enough numbers
 
@@ -43,13 +48,13 @@ for hoved in range(5):
 for stjerne in range(2):
     draw.random_draw_stjernetall()    
 
-print(draw.describe_winning_numbers())
+draw.describe_winning_numbers()
 
     
 
 # Known Bugs:
-# There is a certain chance of hitting the same number multiple times. This should not be possible.
-# There is "None" printed
+# There is a certain chance of hitting the same number multiple times. This should not be possible. - FIXED
+# There is "None" printed - FIXED
 
 # Wants:
-# I want the numbers to be sorted upon view starting from lowest to highest.
+# I want the numbers to be sorted upon view starting from lowest to highest. - ADDED
