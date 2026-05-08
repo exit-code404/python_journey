@@ -9,9 +9,11 @@ hovedtall = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
 
 stjernetall = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
-# Saving the current winning numbers into a list
-current_hovedtall = []
-current_stjernetall = []
+# Saving the current ticket numbers into a list
+ticket = 0
+attempts = 0
+my_hovedtall = []
+my_stjernetall = []
 
 # The class that the Eurojackpot ticket consist of
 class Eurojackpot:
@@ -32,29 +34,125 @@ class Eurojackpot:
             random_stjernetall = choice(stjernetall)
         current_stjernetall.append(random_stjernetall)
 
+    def describe_numbers(self):
+        """Describes the numbers neatly."""
+        print("\n--- Ticket Numbers ---")
+        print(f"Hovedtall: {sorted(current_hovedtall)}")
+        print(f"Stjernetall: {sorted(current_stjernetall)}")
+
+    def describe_ticket_numbers(self):
+        """Describes the chosen ticket numbers"""
+        print("\n--- Ticket Numbers ---")
+        print(f"Hovedtall: {sorted(my_hovedtall)}")
+        print(f"Stjernetall: {sorted(my_stjernetall)}")        
+
     def describe_winning_numbers(self):
         """Describes the winning numbers neatly."""
         print("\n--- Winning Numbers ---")
         print(f"Hovedtall: {sorted(current_hovedtall)}")
         print(f"Stjernetall: {sorted(current_stjernetall)}")
 
+    def lottery_machine(self):
+        """
+        An attempt to make a lottery machine that polls winning numbers constantly while 
+        comparing those against the ticket numbers until it finds a match.
+        A total counts of the attempts are logged and printed when a match is found.
+        """
+        # Logic: Run this loop until there is a match between the winning numbers and ticket numbers.
+    
+               
+            
+
 # Making for loops that uses the Eurojackpot class to create exactly enough numbers
 
-draw = Eurojackpot()
+active = True
+ # Program should stay on until quit. User should be able to create as many
+# unique draws as the user wants.
+    
+while active:
 
-for hoved in range(5):
-    draw.random_draw_hovedtall()
+    # Save current numbers temporarily into the list below
+    current_hovedtall = []
+    current_stjernetall = []
+    
+    initial = "\n--- Eurojackpot Number Generator ---\n"
+    initial += "\nGenerate as much unique numbers as you want, and"
+    initial += "\nhopefully you strike a lucky shot hitting the jackpot."
+    initial += "\nPress 'q' at anytime to quit the program."
+    print(initial)
 
-for stjerne in range(2):
-    draw.random_draw_stjernetall()    
+    enter = input("\nType [E] to generate your numbers: ")
 
-draw.describe_winning_numbers()
+    if enter == 'e':
+        draw = Eurojackpot()
+
+        for hoved in range(5):
+            draw.random_draw_hovedtall()
+
+        for stjerne in range(2):
+            draw.random_draw_stjernetall()    
+
+        draw.describe_numbers()
+
+        if ticket == 0:
+            save_ticket = input("Do you want to buy this ticket? (yes/no) ")
+
+            if save_ticket == 'yes':
+                my_hovedtall.extend(current_hovedtall)
+                my_stjernetall.extend(current_stjernetall)
+                ticket = 1
+            else:
+                continue
+        else:
+            # Here we would like to print the Winning Numbers & the Ticket numbers for easy comparison.
+            draw.describe_winning_numbers()
+            draw.describe_ticket_numbers()
+            print(attempts)
+
+            # I need to check every number and compare every number to each other for accurate results.
+            # Then add a match number as the decider. If match_number == 7 out of 7 there is a match.
+            ticket_numbers = my_hovedtall + my_stjernetall
+            winning_numbers = current_hovedtall + current_stjernetall
+            match_number = 0
+            for number in ticket_numbers:
+                if number in winning_numbers:
+                    match_number = match_number + 1
+
+            if match_number < 7:
+                attempts = attempts + 1
+                continue
+            else:
+                print("There is a match!")
+                draw.describe_ticket_numbers
+                draw.describe_winning_numbers
+                print(attempts)
+                attempt = 0
+            print(attempts)   
+    elif enter == 'q':
+        active = False
+
+    
+
 
     
 
 # Known Bugs:
 # There is a certain chance of hitting the same number multiple times. This should not be possible. - FIXED
 # There is "None" printed - FIXED
+# Numbers is saved, which it should. But it is not cleared. - FIXED
+# There is double parenthases around the saved ticket
 
 # Wants:
 # I want the numbers to be sorted upon view starting from lowest to highest. - ADDED
+# Add an on / off switch with neat visible UI - ADDED
+# Function to create new numbers - ADDED
+# Add so that user can just press the ENTER key instead of having to write 'ENTER'
+# Add function to buy ticket, and save those numbers to my_ticket list - ADDED
+# When a ticket has been bought. A loop enables that goes through different numbers until it matches with the ticket. 
+# Then a winning screen is shown, and how many attempts it had made before the ticket matched with the winning numbers.
+
+# I need to combine the hovedtall and stjernetall to make comparison work, otherwise it would be a problem to?
+#. - I could compare both separately.
+# It would be way easier to create the lottery machine method if each important part of the program was made of small
+# method bits.
+# - Should I do this?
