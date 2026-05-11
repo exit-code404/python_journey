@@ -69,12 +69,23 @@ class Eurojackpot:
         for stjerne in range(2):
             draw.random_draw_stjernetall()
 
-    def compare_numbers(self, match_number):
+    def compare_hoved(self, match_number):
         """Comparing winning numbers with ticket numbers to see if it's a match."""
         self.match_number = match_number
-        for number in ticket_numbers:
-                if number in winning_numbers:
-                    self.match_number = self.match_number + 1                
+        for number in ticket_hoved:
+                if number in winning_hoved:
+                    self.match_number = self.match_number + 1
+
+    def compare_stjerne(self):
+        """Comparing winning numbers with ticket numbers to see if it's a match."""
+        for number in ticket_stjerne:
+                if number in winning_stjerne:
+                    self.match_number = self.match_number + 1
+
+    def compare_numbers(self):
+        self.compare_hoved(0)
+        self.compare_stjerne()                                
+                          
            
 
 # Making for loops that uses the Eurojackpot class to create exactly enough numbers
@@ -85,22 +96,22 @@ active = True
     
 while active:
     draw = Eurojackpot()
-
-    # Save current numbers temporarily into the list below
-    current_hovedtall = []
-    current_stjernetall = []
-    
     draw.initial_prompt()
+    
+    for i in range(384301):    
+        
+        # Save current numbers temporarily into the list below
+        current_hovedtall = []
+        current_stjernetall = []
 
-    enter = input("\nType [E] to generate your numbers: ")
-
-    if enter == 'e':
+        # Generate winning numbers
         draw.generate_hovedtall()
         draw.generate_stjernetall()
 
-        draw.describe_numbers()
-
+        # Check to see if there is a ticket. If not compare Ticket numbers to Winning numbers.
         if ticket == 0:
+            draw.describe_numbers()
+
             save_ticket = input("Do you want to buy this ticket? (yes/no) ")
 
             if save_ticket == 'yes':
@@ -110,36 +121,39 @@ while active:
             else:
                 continue
         else:
-            # Here we would like to print the Winning Numbers & the Ticket numbers for easy comparison.
-            draw.describe_winning_numbers()
-            draw.describe_ticket_numbers()
-            print(attempts)
-
             # I need to check every number and compare every number to each other for accurate results.
             # Then add a match number as the decider. If match_number == 7 out of 7 there is a match.
-            ticket_numbers = my_hovedtall + my_stjernetall
-            winning_numbers = current_hovedtall + current_stjernetall
-            draw.compare_numbers(0)
+            ticket_hoved = my_hovedtall
+            ticket_stjerne = my_stjernetall
+            winning_hoved = current_hovedtall
+            winning_stjerne = current_stjernetall
+            draw.compare_numbers()
 
             if draw.match_number < 7:
                 attempts = attempts + 1
                 continue
             else:
                 print("There is a match!")
-                draw.describe_ticket_numbers
-                draw.describe_winning_numbers
+                draw.describe_ticket_numbers()
+                draw.describe_winning_numbers()
                 print(attempts)
-                attempt = 0
-            print(attempts)  
-    elif enter == 'q':
-        active = False
+                attempts = 0
+                break
+    
+    if attempts == 384300:
+        print(f"No match found after {attempts} attempts. Try again in another lifetime!")
+        active = False        
 
     
 # Known Bugs:
 # There is a certain chance of hitting the same number multiple times. This should not be possible. - FIXED
 # There is "None" printed - FIXED
 # Numbers is saved, which it should. But it is not cleared. - FIXED
-# There is double parenthases around the saved ticket
+# There is double parenthases around the saved ticket - FIXED
+# Does not stop at set range - FIXED
+# Compare the Winning Hoved with Ticket Hoved, and Winning Stjerne with Ticket Stjerne to get accurate results - FIXED
+# After finding a match, it may still print "No match found..." - FIXED
+# The compare_stjerne resets match_number back to 0 with current setup - FIXED
 
 # Wants:
 # I want the numbers to be sorted upon view starting from lowest to highest. - ADDED
@@ -147,11 +161,5 @@ while active:
 # Function to create new numbers - ADDED
 # Add so that user can just press the ENTER key instead of having to write 'ENTER'
 # Add function to buy ticket, and save those numbers to my_ticket list - ADDED
-# When a ticket has been bought. A loop enables that goes through different numbers until it matches with the ticket. 
-# Then a winning screen is shown, and how many attempts it had made before the ticket matched with the winning numbers.
-
-# I need to combine the hovedtall and stjernetall to make comparison work, otherwise it would be a problem to?
-#. - I could compare both separately.
-# It would be way easier to create the lottery machine method if each important part of the program was made of small
-# method bits.
-# - Should I do this?
+# Add automatic loop - ADDED
+# Instead of using choice and checking for duplicate numbers, I can use sample instead
