@@ -1,0 +1,17 @@
+So far on the Python Journey as a programmer I have learned about this:
+- Writing Hello World!
+- Creating a Github repo, and commiting my progress to the repo from VS Code
+- Setting up a folder and working on it through VS Code
+- Variables
+- For loops
+- While loops
+- Functions
+- Classes & Methods, and inheritance and composition
+- Comments
+- Importing libraries, and installing libraries
+- Sorting, organizing, and styling my code neatly
+- Formatting and styling output
+- Getting input and using input
+- Creating a text file and using that text file inside my code
+- Importing random and using that in my code to get random numbers
+- Importing pathlib and using this in my code to point python to specific files, reading files, and editing files.

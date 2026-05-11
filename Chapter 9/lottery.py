@@ -19,14 +19,21 @@ my_stjernetall = []
 class Eurojackpot:
     """Attempt to make a replica of Eurojackpot random drawing."""
 
+    def initial_prompt(self):
+        """Describes the program neatly formatted"""
+        initial = "\n--- Eurojackpot Number Generator ---\n"
+        initial += "\nGenerate as much unique numbers as you want, and"
+        initial += "\nhopefully you strike a lucky shot hitting the jackpot."
+        initial += "\nPress 'q' at anytime to quit the program."
+        print(initial)
+
     def random_draw_hovedtall(self):
         """Making the random hovedtall"""
         random_hovedtall = choice(hovedtall)
         while random_hovedtall in current_hovedtall:
             random_hovedtall = choice(hovedtall)
         current_hovedtall.append(random_hovedtall)
-
-        
+    
     def random_draw_stjernetall(self):
         """Making the random stjernetall"""
         random_stjernetall = choice(stjernetall)
@@ -52,45 +59,44 @@ class Eurojackpot:
         print(f"Hovedtall: {sorted(current_hovedtall)}")
         print(f"Stjernetall: {sorted(current_stjernetall)}")
 
-    def lottery_machine(self):
-        """
-        An attempt to make a lottery machine that polls winning numbers constantly while 
-        comparing those against the ticket numbers until it finds a match.
-        A total counts of the attempts are logged and printed when a match is found.
-        """
-        # Logic: Run this loop until there is a match between the winning numbers and ticket numbers.
-    
-               
-            
+    def generate_hovedtall(self):
+        """A for loop that generates the Hovedtall."""
+        for hoved in range(5):
+            draw.random_draw_hovedtall()
+
+    def generate_stjernetall(self):
+        """A for loop that generates the Stjernetall."""
+        for stjerne in range(2):
+            draw.random_draw_stjernetall()
+
+    def compare_numbers(self, match_number):
+        """Comparing winning numbers with ticket numbers to see if it's a match."""
+        self.match_number = match_number
+        for number in ticket_numbers:
+                if number in winning_numbers:
+                    self.match_number = self.match_number + 1                
+           
 
 # Making for loops that uses the Eurojackpot class to create exactly enough numbers
 
 active = True
- # Program should stay on until quit. User should be able to create as many
+# Program should stay on until quit. User should be able to create as many
 # unique draws as the user wants.
     
 while active:
+    draw = Eurojackpot()
 
     # Save current numbers temporarily into the list below
     current_hovedtall = []
     current_stjernetall = []
     
-    initial = "\n--- Eurojackpot Number Generator ---\n"
-    initial += "\nGenerate as much unique numbers as you want, and"
-    initial += "\nhopefully you strike a lucky shot hitting the jackpot."
-    initial += "\nPress 'q' at anytime to quit the program."
-    print(initial)
+    draw.initial_prompt()
 
     enter = input("\nType [E] to generate your numbers: ")
 
     if enter == 'e':
-        draw = Eurojackpot()
-
-        for hoved in range(5):
-            draw.random_draw_hovedtall()
-
-        for stjerne in range(2):
-            draw.random_draw_stjernetall()    
+        draw.generate_hovedtall()
+        draw.generate_stjernetall()
 
         draw.describe_numbers()
 
@@ -113,12 +119,9 @@ while active:
             # Then add a match number as the decider. If match_number == 7 out of 7 there is a match.
             ticket_numbers = my_hovedtall + my_stjernetall
             winning_numbers = current_hovedtall + current_stjernetall
-            match_number = 0
-            for number in ticket_numbers:
-                if number in winning_numbers:
-                    match_number = match_number + 1
+            draw.compare_numbers(0)
 
-            if match_number < 7:
+            if draw.match_number < 7:
                 attempts = attempts + 1
                 continue
             else:
@@ -127,15 +130,11 @@ while active:
                 draw.describe_winning_numbers
                 print(attempts)
                 attempt = 0
-            print(attempts)   
+            print(attempts)  
     elif enter == 'q':
         active = False
 
     
-
-
-    
-
 # Known Bugs:
 # There is a certain chance of hitting the same number multiple times. This should not be possible. - FIXED
 # There is "None" printed - FIXED
