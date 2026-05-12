@@ -1,4 +1,4 @@
-from random import choice
+from random import sample
 
 # List containing numbers in chronological order
 hovedtall = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
@@ -27,20 +27,6 @@ class Eurojackpot:
         initial += "\nPress 'q' at anytime to quit the program."
         print(initial)
 
-    def random_draw_hovedtall(self):
-        """Making the random hovedtall"""
-        random_hovedtall = choice(hovedtall)
-        while random_hovedtall in current_hovedtall:
-            random_hovedtall = choice(hovedtall)
-        current_hovedtall.append(random_hovedtall)
-    
-    def random_draw_stjernetall(self):
-        """Making the random stjernetall"""
-        random_stjernetall = choice(stjernetall)
-        while random_stjernetall in current_stjernetall:
-            random_stjernetall = choice(stjernetall)
-        current_stjernetall.append(random_stjernetall)
-
     def describe_numbers(self):
         """Describes the numbers neatly."""
         print("\n--- Ticket Numbers ---")
@@ -59,34 +45,35 @@ class Eurojackpot:
         print(f"Hovedtall: {sorted(current_hovedtall)}")
         print(f"Stjernetall: {sorted(current_stjernetall)}")
 
+    def describe_match_numbers(self):
+        """Prints neatly formatted message when there is match."""
+        message = "\n --- A MATCH HAS BEEN FOUND! --- \n"
+        message += f"\nNumber of Attempts: {attempts}\n"
+        print(message)
+        self.describe_ticket_numbers()
+        self.describe_winning_numbers()    
+
     def generate_hovedtall(self):
-        """A for loop that generates the Hovedtall."""
-        for hoved in range(5):
-            draw.random_draw_hovedtall()
+        """Returns 5 random numbers from Hovedtall."""
+        return sample(hovedtall, 5)
 
     def generate_stjernetall(self):
-        """A for loop that generates the Stjernetall."""
-        for stjerne in range(2):
-            draw.random_draw_stjernetall()
-
-    def compare_hoved(self, match_number):
-        """Comparing winning numbers with ticket numbers to see if it's a match."""
-        self.match_number = match_number
-        for number in ticket_hoved:
-                if number in winning_hoved:
-                    self.match_number = self.match_number + 1
-
-    def compare_stjerne(self):
-        """Comparing winning numbers with ticket numbers to see if it's a match."""
-        for number in ticket_stjerne:
-                if number in winning_stjerne:
-                    self.match_number = self.match_number + 1
+        """Returns 2 random numbers from Stjernetall."""
+        return sample(stjernetall, 2)
 
     def compare_numbers(self):
-        self.compare_hoved(0)
-        self.compare_stjerne()                                
-                          
-           
+        """Comparing Ticket numbers with Winning numbers to see if there is a match."""
+        self.match_number = 0
+
+        # Checking Hovedtall
+        for number in my_hovedtall:
+                if number in current_hovedtall:
+                    self.match_number += 1
+
+        # Checking Stjernetall
+        for number in my_stjernetall:
+                if number in current_stjernetall:
+                    self.match_number += 1            
 
 # Making for loops that uses the Eurojackpot class to create exactly enough numbers
 
@@ -98,15 +85,16 @@ while active:
     draw = Eurojackpot()
     draw.initial_prompt()
     
-    for i in range(384301):    
+    # Always have +1 the wanted loop count
+    for i in range(139_000_001):    
         
-        # Save current numbers temporarily into the list below
-        current_hovedtall = []
-        current_stjernetall = []
+        # # Save current numbers temporarily into the list below
+        # current_hovedtall = []
+        # current_stjernetall = []
 
-        # Generate winning numbers
-        draw.generate_hovedtall()
-        draw.generate_stjernetall()
+        # Generate numbers
+        current_hovedtall = draw.generate_hovedtall()
+        current_stjernetall = draw.generate_stjernetall()
 
         # Check to see if there is a ticket. If not compare Ticket numbers to Winning numbers.
         if ticket == 0:
@@ -123,24 +111,27 @@ while active:
         else:
             # I need to check every number and compare every number to each other for accurate results.
             # Then add a match number as the decider. If match_number == 7 out of 7 there is a match.
-            ticket_hoved = my_hovedtall
-            ticket_stjerne = my_stjernetall
-            winning_hoved = current_hovedtall
-            winning_stjerne = current_stjernetall
+            
+            # TEMP: Force an comparision
+            # current_hovedtall = list(my_hovedtall)
+            # current_stjernetall = list(my_stjernetall)
+
             draw.compare_numbers()
 
             if draw.match_number < 7:
                 attempts = attempts + 1
                 continue
             else:
-                print("There is a match!")
-                draw.describe_ticket_numbers()
-                draw.describe_winning_numbers()
-                print(attempts)
+                draw.describe_match_numbers()
                 attempts = 0
+                ticket = 0
+                my_hovedtall.clear()
+                my_stjernetall.clear()
+                active = False
                 break
     
-    if attempts == 384300:
+    # Always have the intended loop count here.
+    if attempts >= 139_000_000:
         print(f"No match found after {attempts} attempts. Try again in another lifetime!")
         active = False        
 
@@ -154,6 +145,9 @@ while active:
 # Compare the Winning Hoved with Ticket Hoved, and Winning Stjerne with Ticket Stjerne to get accurate results - FIXED
 # After finding a match, it may still print "No match found..." - FIXED
 # The compare_stjerne resets match_number back to 0 with current setup - FIXED
+# The double brackets are back once again - FIXED by avoiding extend/append and instead use return
+# There seems to be an issue causing the initial prompt to reappear after starting the loop. - FIXED
+
 
 # Wants:
 # I want the numbers to be sorted upon view starting from lowest to highest. - ADDED
@@ -162,4 +156,6 @@ while active:
 # Add so that user can just press the ENTER key instead of having to write 'ENTER'
 # Add function to buy ticket, and save those numbers to my_ticket list - ADDED
 # Add automatic loop - ADDED
-# Instead of using choice and checking for duplicate numbers, I can use sample instead
+# Instead of using choice and checking for duplicate numbers, I can use sample instead - ADDED
+# Clean up the comparing part - ADDED
+# This program is somewhat fragile - not bulletproof - as there is possible to add numbers in a way that generates an error.
