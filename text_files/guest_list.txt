@@ -1,0 +1,6 @@
+--- Guest list ---
+	gerd
+	albert
+	hubert
+	emma
+	noemi
