@@ -85,13 +85,12 @@ while active:
     draw = Eurojackpot()
     draw.initial_prompt()
     
+    
+    max_attempts = 1_000_000
+    do_attempts = max_attempts + 1
     # Always have +1 the wanted loop count
-    for i in range(139_000_001):    
+    for i in range(do_attempts):    
         
-        # # Save current numbers temporarily into the list below
-        # current_hovedtall = []
-        # current_stjernetall = []
-
         # Generate numbers
         current_hovedtall = draw.generate_hovedtall()
         current_stjernetall = draw.generate_stjernetall()
@@ -131,7 +130,7 @@ while active:
                 break
     
     # Always have the intended loop count here.
-    if attempts >= 139_000_000:
+    if attempts >= max_attempts:
         print(f"No match found after {attempts} attempts. Try again in another lifetime!")
         active = False        
 
