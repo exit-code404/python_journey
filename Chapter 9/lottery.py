@@ -85,11 +85,13 @@ while active:
     draw = Eurojackpot()
     draw.initial_prompt()
     
-    
+    # Change this to adjust how many iterations
     max_attempts = 1_000_000
-    do_attempts = max_attempts + 1
+
+    # Do not change this
+    DO_ATTEMPTS = max_attempts + 1
     # Always have +1 the wanted loop count
-    for i in range(do_attempts):    
+    for i in range(DO_ATTEMPTS):    
         
         # Generate numbers
         current_hovedtall = draw.generate_hovedtall()
