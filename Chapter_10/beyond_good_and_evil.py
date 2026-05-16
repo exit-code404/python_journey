@@ -5,12 +5,15 @@ def count_words(path):
     try:
         contents = path.read_text(encoding='utf-8')
     except FileNotFoundError:
-        print(f"The file {path} is not found.")
+        pass
     else:
         # Count the approximate number of words in the file:
         words = contents.split()
         num_words = len(words)
         print(f"This file {path} has about {num_words} words.")
+        word = 'the '
+        contents_num = contents.count(word)
+        print(f"This file mentions the word {word} {contents_num} times.")       
 
 
 
