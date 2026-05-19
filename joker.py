@@ -97,7 +97,7 @@ while active:
         ticket_numbers.append(chosen_number)
 
     # Create the draw
-    for attempt in range(1_000_000):
+    for attempt in range(96):
         winning_number = joker.generate_numbers()
         attempts = attempts + 1
         cost_estimate += int(rows) * 25
