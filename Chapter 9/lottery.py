@@ -86,7 +86,7 @@ while active:
     draw.initial_prompt()
     
     # Change this to adjust how many iterations
-    max_attempts = 1_000_000
+    max_attempts = 800
 
     # Do not change this
     DO_ATTEMPTS = max_attempts + 1
